@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7ad7f933-0dce-4f68-aec2-e8bd8e4df8de" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/pro/src/Content.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pro/src/test/java/com/reactive/pro/ProApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/pro/src/test/java/com/reactive/pro/ProApplicationTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +39,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "JUnit.ProApplicationTests.MonoLearning.executor": "Run",
     "JUnit.ProApplicationTests.test.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -56,7 +58,23 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.ProApplicationTests.MonoLearning">
+    <configuration name="ProApplicationTests.MonoLearning" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="pro" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.reactive.pro.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.reactive.pro" />
+      <option name="MAIN_CLASS_NAME" value="com.reactive.pro.ProApplicationTests" />
+      <option name="METHOD_NAME" value="MonoLearning" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ProApplicationTests.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="pro" />
       <extension name="coverage">
@@ -75,6 +93,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ProApplicationTests.MonoLearning" />
         <item itemvalue="JUnit.ProApplicationTests.test" />
       </list>
     </recent_temporary>

@@ -6,6 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import reactor.core.CoreSubscriber;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.util.function.Tuple2;
 
 @SpringBootTest
 class ProApplicationTests {
@@ -72,6 +73,64 @@ class ProApplicationTests {
 				System.out.println("data processing completed");
 			}
 		});
+	}
+
+
+	@Test
+	void MonoLearning(){
+
+		Mono<Object> error = Mono.error(new RuntimeException("Error !!!"));
+		Mono<Object> m1 = Mono.just("Learn with Me!!").log().then(error);
+		m1.subscribe(System.out::println);
+		//ignore the response of this mono and return the error
+
+
+		Mono<String> m2 = Mono.just("Learn with Me!!").log().thenReturn("Mono then return");
+		m2.subscribe(System.out::println);
+
+
+		Mono<String> m3 = Mono.just("Learn with Me!!");
+		Mono<String> m4 = Mono.just("Subscribe the channel");
+		Mono<Integer> m5 = Mono.just(100);
+		Mono<Boolean> m6 = Mono.just(true);
+
+		Mono<Tuple2<String, String>> zip = Mono.zip(m3, m4);
+		zip.subscribe(tuple -> {
+			System.out.println("Tuple 1: " + tuple.getT1());
+			System.out.println("Tuple 2: " + tuple.getT2());
+		});
+
+		Mono<Tuple2<Tuple2<String, String>, Integer>> zip1 = Mono.zip(zip, m5);
+
+		zip1.subscribe(tuple -> {
+			System.out.println("Tuple 1: " + tuple.getT1().getT1());
+			System.out.println("Tuple 2: " + tuple.getT1().getT2());
+			System.out.println("Tuple 3: " + tuple.getT2());
+		});
+
+		Mono<Tuple2<Tuple2<Tuple2<String, String>, Integer>, Boolean>> tuple2Mono = zip1.zipWith(m6);
+
+		tuple2Mono.subscribe(tuple -> {
+			System.out.println("Tuple 1: " + tuple.getT1().getT1().getT1());
+			System.out.println("Tuple 2: " + tuple.getT1().getT1().getT2());
+			System.out.println("Tuple 3: " + tuple.getT1().getT2());
+			System.out.println("Tuple 4: " + tuple.getT2());
+		});
+
+		Mono<String> m7 = m3.map(String::toUpperCase).onErrorReturn("Default Value");
+		m7.subscribe(System.out::println);
+
+		Mono<String[]> mono = m3.flatMap(data -> Mono.just(data.split(" ")));
+		mono.subscribe(array -> {
+			for (String s : array) {
+				System.out.println(s);
+			}
+		});
+
+		Flux<String> stringFlux = m3.flatMapMany(data -> Flux.just(data.split(" "))).log();
+		stringFlux.subscribe(System.out::println);
+
+
 	}
 
 }
