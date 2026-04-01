@@ -1,0 +1,44 @@
+Reactive Programming Features:
+1. Asynchronous and non-blocking: Reactive programming allows for asynchronous and non-blocking operations, enabling applications to handle multiple tasks concurrently without waiting for each task to complete before moving on to the next one.
+2. Functional programming style: Reactive programming promotes a functional programming style, where data flows through a series of transformations and operations, making it easier to reason about and maintain code.
+3. Data flow as event driven: In reactive programming, data flows are treated as events that can be observed and reacted to. This allows for a more dynamic and responsive application design.
+4. Backpressure handling: Reactive programming provides mechanisms to handle backpressure, which occurs when the rate of data production exceeds the rate of data consumption. This helps to prevent resource exhaustion and ensures that applications can continue to function smoothly under heavy load.
+5. Composability: Reactive programming allows for the composition of complex operations from simpler ones, making it easier to build and maintain complex applications. This promotes code reuse and modularity, as developers can create reusable components that can be easily combined to achieve desired functionality.
+
+
+4 main interfaces of reactive programming:
+1. Publisher: The Publisher interface represents a source of data that can be observed. It defines methods for subscribing to the data stream and for emitting data to subscribers.
+2. Subscriber: The Subscriber interface represents an entity that can subscribe to a Publisher and receive data from it. It defines methods for handling the received data, as well as for handling errors and completion events.
+3. Subscription: The Subscription interface represents a connection between a Publisher and a Subscriber. It defines methods for requesting data from the Publisher and for canceling the subscription.
+4. Processor: The Processor interface represents a component that can both consume and produce data. It acts as a bridge between a Publisher and a Subscriber, allowing for the transformation and processing of data as it flows through the reactive stream. It defines methods for subscribing to a Publisher, receiving data, and emitting transformed data to Subscribers.
+
+
+Publisher Interface :
+Public interface Publisher<T> {
+    void subscribe(Subscriber<? super T> subscriber);
+}
+The Publisher interface defines a single method, subscribe, which takes a Subscriber as an argument. This method is used to establish a subscription between the Publisher and the Subscriber, allowing the Subscriber to receive data emitted by the Publisher. The type parameter T represents the type of data that the Publisher will emit to its Subscribers. The Publisher is responsible for managing the flow of data and ensuring that it is delivered to the Subscribers in a timely and efficient manner.
+
+
+Subscriber Interface:
+Public interface Subscriber<T> {
+    void onSubscribe(Subscription subscription);
+    void onNext(T item);
+    void onError(Throwable throwable);
+    void onComplete();
+}
+The Subscriber interface defines four methods that a Subscriber must implement to receive data from a Publisher. The onSubscribe method is called when the Subscriber subscribes to a Publisher, and it receives a Subscription object that can be used to request data from the Publisher. The onNext method is called when the Publisher emits a new item of data, and it receives the emitted item as an argument. The onError method is called when an error occurs during the data emission process, and it receives a Throwable object that describes the error. The onComplete method is called when the Publisher has finished emitting all data, indicating that there are no more items to be emitted. The Subscriber is responsible for handling the received data, as well as for handling any errors or completion events that may occur during the data emission process.
+
+
+Subscription Interface:
+Public interface Subscription {
+    void request(long n);
+    void cancel();
+}
+The Subscription interface defines two methods that a Subscriber can use to manage its subscription to a Publisher. The request method is used to request a specific number of items from the Publisher, allowing the Subscriber to control the flow of data and prevent overwhelming itself with too much data at once. The cancel method is used to cancel the subscription, indicating that the Subscriber is no longer interested in receiving data from the Publisher. This can be useful in situations where the Subscriber has received enough data or when it wants to stop receiving data for any reason. The Subscription interface provides a way for Subscribers to manage their subscriptions and control the flow of data from the Publisher, ensuring that they can handle the data in a way that is efficient and responsive to their needs.
+
+
+
+Processor Interface:
+Public interface Processor<T, R> extends Subscriber<T>, Publisher<R> {
+}The Processor interface is a combination of the Subscriber and Publisher interfaces, allowing it to both consume and produce data. It extends the Subscriber interface, meaning that it can subscribe to a Publisher and receive data from it, and it also extends the Publisher interface, meaning that it can emit transformed data to its own Subscribers. The type parameters T and R represent the types of data that the Processor consumes and produces, respectively. The Processor acts as a bridge between a Publisher and a Subscriber, allowing for the transformation and processing of data as it flows through the reactive stream. It can be used to perform operations such as filtering, mapping, or combining data from multiple sources before emitting the transformed data to its Subscribers. The Processor interface provides a powerful way to create complex data processing pipelines in a reactive programming context, enabling developers to build applications that can efficiently handle and transform data in a responsive and scalable manner.
